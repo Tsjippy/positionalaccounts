@@ -4,11 +4,16 @@
 ### Added
 
 ### Changed
-- namespace
 
 ### Fixed
 
 ### Updated
+
+## [1.0.2] - 2025-01-27
+
+
+### Changed
+- namespace
 
 ## [1.0.1] - 2025-01-27
 
