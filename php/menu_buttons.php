@@ -1,5 +1,5 @@
 <?php
-namespace SIM\POSTIONALACCOUNT;
+namespace SIM\POSITIONALACCOUNTS;
 use SIM;
 
 //add switch account button

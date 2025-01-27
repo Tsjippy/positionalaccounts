@@ -1,5 +1,5 @@
 <?php
-namespace SIM\POSTIONALACCOUNT;
+namespace SIM\POSITIONALACCOUNTS;
 use SIM;
 
 const MODULE_VERSION		= '1.0.1';

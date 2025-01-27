@@ -1,5 +1,5 @@
 <?php
-namespace SIM\POSTIONALACCOUNT;
+namespace SIM\POSITIONALACCOUNTS;
 use SIM;
 
 add_action('sim-after-login-settings', __NAMESPACE__.'\addConditionalAccountSettings', 10, 2);
