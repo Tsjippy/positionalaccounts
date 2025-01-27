@@ -1,5 +1,5 @@
 <?php
-namespace SIM\FORMS;
+namespace SIM\POSTIONALACCOUNT;
 use SIM;
 
 const MODULE_VERSION		= '7.0.0';
@@ -13,6 +13,39 @@ function moduleData($dataHtml, $moduleSlug, $settings){
 	if($moduleSlug != MODULE_SLUG){
 		return $dataHtml;
 	}
+
+	$args = array(
+		'meta_query' => array(
+			array(
+				'key' 		=> 'account-type',
+				'value' 	=> 'positional',
+				'compare' 	=> '='
+			)
+		)
+	);
+
+	$url		= SIM\ADMIN\getDefaultPageLink('usermanagement', 'user_edit_page')."?userid=";
+
+	$dataHtml	.= "<table class='sim'>";
+		$dataHtml	.= "<tr><th>Name</th><th>Linked to</th></tr>";
+
+	foreach(get_users($args) as $user){
+		$linkedUserId 	= get_user_meta($user->ID, 'linked-account', true);
+
+		$name			= "No user linked to this account <a href='$url$user->ID&main_tab=login_info'>Link now</a>";
+
+		if(is_numeric($linkedUserId)){
+			$linkedUser		= get_user($linkedUserId);
+
+			if($linkedUser){
+				$name		= $linkedUser->display_name;
+			}
+		}
+
+		$dataHtml	.= "<tr><td><a href='$url$user->ID&main_tab=login_info'>$user->display_name</a></td><td>$name</td></tr>";
+	}
+	$dataHtml	.= "</table>";
+	
 
 	return $dataHtml;
 }

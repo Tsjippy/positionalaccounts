@@ -43,13 +43,40 @@ function updateAccountType($userId, $name){
         update_user_meta($userId, 'account-type', $_REQUEST['type']);
         echo "<div class='success'>Succesfully changed the account type for $name to {$_REQUEST['type']}</div>";
     }elseif($_REQUEST['action'] == 'Link now'){
-        update_user_meta($userId, 'linked-account', $_REQUEST['linked_account']);
+        if(!is_numeric($_REQUEST['linked_account'])){
+            return;
+        }
+
+        $linkedAccountId    = $_REQUEST['linked_account'];
+
+        // Remove old linked user if needed
+        $oldLinkedUserId = get_user_meta($userId, 'linked-account', true);
+        if(is_numeric($oldLinkedUserId)){
+            // A non-positional account can have multiple positional account linked to it
+            $oldLinkedAccountLinkedAccounts = get_user_meta($oldLinkedUserId, 'linked-accounts', true);
+
+            if(is_array($oldLinkedAccountLinkedAccounts) && in_array($userId, $oldLinkedAccountLinkedAccounts)){
+                unset($oldLinkedAccountLinkedAccounts[$userId]);
+
+                update_user_meta($oldLinkedUserId, 'linked-accounts', $oldLinkedAccountLinkedAccounts);
+            }
+        }
+
+        // Store the link in this account
+        update_user_meta($userId, 'linked-account', $linkedAccountId);
+
+        // Store the link in the target account
+        // A non-positional account can have multiple positional account linked to it
+        $linkedAccountLinkedAccounts    = (array)get_user_meta($linkedAccountId, 'linked-accounts', true);
+        $linkedAccountLinkedAccounts[]  = $userId;
+        update_user_meta($linkedAccountId, 'linked-accounts', $linkedAccountLinkedAccounts);
+
         $displayName	= get_user($_REQUEST['linked_account'])->display_name;
         echo "<div class='success'>Succesfully linked the account for $name to the account of $displayName</div>";
     }
 }
 
-add_filter('sim-generics-form', __NAMESPACE__.'\showPositionalForm');
+add_filter('sim-generics-form', __NAMESPACE__.'\showPositionalForm', 10, 2);
 function showPositionalForm($html, $userId){
     if(checkIfNormal('', $userId)){
         return $html;
@@ -78,26 +105,35 @@ function showPositionalForm($html, $userId){
 }
 
 // Most forms do not apply to positional accounts
-add_filter('sim-should-show-family-form',__NAMESPACE__.'\checkIfNormal');
-add_filter('sim-should-show-location-form',__NAMESPACE__.'\checkIfNormal');
-add_filter('sim-should-show-picture-form',__NAMESPACE__.'\checkIfNormal');
-add_filter('sim-should-show-security-form',__NAMESPACE__.'\checkIfNormal');
-add_filter('sim-should-show-vaccination-form',__NAMESPACE__.'\checkIfNormal');
+add_filter('sim-should-show-family-form',__NAMESPACE__.'\checkIfNormal', 10, 2);
+add_filter('sim-should-show-location-form',__NAMESPACE__.'\checkIfNormal', 10, 2);
+add_filter('sim-should-show-picture-form',__NAMESPACE__.'\checkIfNormal', 10, 2);
+add_filter('sim-should-show-security-form',__NAMESPACE__.'\checkIfNormal', 10, 2);
+add_filter('sim-should-show-vaccination-form',__NAMESPACE__.'\checkIfNormal', 10, 2);
 
 // no mandatory documents for positional accounts
-add_filter('sim-must-read',__NAMESPACE__.'\checkIfNormal');
+add_filter('sim-must-read',__NAMESPACE__.'\checkIfNormal', 10, 2);
 
-function checkIfNormal( $isNormal, $userId){
-    return get_user_meta($userId, 'account-type', true) != 'positional';
+function checkIfNormal( $isNormal, $userId=''){
+    return getAccountType($userId) != 'positional';
 }
 
 // No recommended fields for positional user accounts
 add_filter("sim_recommended_html_filter", __NAMESPACE__.'\filterPositionalAccount', 10, 2);
 add_filter("sim_mandatory_html_filter", __NAMESPACE__.'\filterPositionalAccount', 10, 2);
 function filterPositionalAccount($html, $userId){
-	if(get_user_meta($userId, 'account-type', true) == 'positional'){
+	if(getAccountType($userId) == 'positional'){
 		return '';
 	}
 
 	return $html;
+}
+
+function getAccountType($userId=''){
+    if(!is_numeric($userId)){
+        $user       = wp_get_current_user();
+        $userId     = $user->ID;
+    }
+    
+    return get_user_meta($userId, 'account-type', true);
 }
