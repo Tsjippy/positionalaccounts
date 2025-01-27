@@ -86,7 +86,7 @@ function showPositionalForm($html, $userId){
     $inkedUser			= get_user($linkedAccountId);
     if(empty($linkedAccountId) || !$inkedUser){
         $linkedAccountId	= -1;
-        $html			   .= "This account is an positional account and should be linked to a normal user account.<br>Please do so on the 'Login Info' tab";
+        $html			   .= "<div class='warning'>This account is an positional account and should be linked to a normal user account.<br>Please do so on the 'Login Info' tab</div>";
     }else{
         $nameHtml			= $inkedUser->display_name;
         if(function_exists('SIM\USERPAGES\getUserPageUrl')){
@@ -136,4 +136,17 @@ function getAccountType($userId=''){
     }
     
     return get_user_meta($userId, 'account-type', true);
+}
+
+// Show the details of the person linked to a positional account and not the positional account details
+add_filter('sim-user-description-user-id', __NAMESPACE__.'\userDescriptionId');
+function userDescriptionId($userId){
+    $linkedAccountId    = get_user_meta($userId, 'linked-account', true);
+
+    // account is linked and the account still exists
+    if(is_numeric($linkedAccountId) && get_user($linkedAccountId)){
+        return $linkedAccountId;
+    }
+
+    return $userId;
 }

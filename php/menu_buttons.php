@@ -17,9 +17,22 @@ function menuItems($items, $args) {
 
         $subItems   = '';
 
+        $profilePicture = SIM\displayProfilePicture($userId, [20, 20], false, false, false);
+
         if(getAccountType($userId) == 'positional'){
             $linkedAccountId    = get_user_meta($userId, 'linked-account', true);
+            if(empty($linkedAccountId)){
+                return $items;
+            }
+
             $linkedAccountName  = get_user($linkedAccountId)->display_name;
+            if(!$linkedAccountName){
+                return $items;
+            }
+
+            if(!$profilePicture){
+                $profilePicture = SIM\displayProfilePicture($linkedAccountId, [20, 20], true, false, false);
+            }
 
             $subItems   .= "<li class='menu-item switch-account'><a href='?switch-account=$linkedAccountId&nonce=$nonce' class='switch-accounts'>Switch to $linkedAccountName</a></li>";
         }else{
@@ -38,10 +51,7 @@ function menuItems($items, $args) {
             }
         }
 
-        $profilePicture = SIM\displayProfilePicture($userId, [20, 20], true, false, false);
-
         if(empty($subItems)){
-            $items   .= "<li class='menu-item account'><a href='/my-profile' class='account'>$profilePicture</a></li>";
             return $items;
         }
 
