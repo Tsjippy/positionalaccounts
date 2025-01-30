@@ -6,6 +6,7 @@
 ### Changed
 
 ### Fixed
+- readme typo
 
 ### Updated
 
