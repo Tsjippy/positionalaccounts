@@ -1,4 +1,4 @@
-This module adds the posibility of having account attached to a function rather than a person.
+This module adds the posibility of having an account attached to a function rather than a person.
 
 This adds the folowing benefits:<br>
 * Roles and permissions can be added to a function and not to a person<br>
