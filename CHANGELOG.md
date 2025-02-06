@@ -7,6 +7,7 @@
 
 ### Fixed
 - readme typo
+- switch without page loading
 
 ### Updated
 
