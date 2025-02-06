@@ -2,7 +2,7 @@
 namespace SIM\POSITIONALACCOUNTS;
 use SIM;
 
-// switch accounts if needed
+// switch accounts if needed. Do this as early as possible to make sure the website is rendered after the switch
 add_action( 'plugins_loaded', __NAMESPACE__ . '\maybeSwitchAccount' );
 function maybeSwitchAccount($args){
     if(isset($_POST['switch-account'])){
@@ -12,7 +12,7 @@ function maybeSwitchAccount($args){
     return $args;
 }
 
-//add switch account button
+//add switch account buttons
 add_filter('wp_nav_menu_items', __NAMESPACE__.'\menuItems', 1, 2);
 function menuItems($items, $args) {
     // We should add a switch menu item
@@ -32,7 +32,7 @@ function menuItems($items, $args) {
         $baseMenuItem   .= "<form action='' method='post'>";
             $baseMenuItem   .= "<input type='hidden' name='switch-account' value='%d'>";
             $baseMenuItem   .= "<input type='hidden' name='nonce' value='$nonce'>";
-            $baseMenuItem   .= "<button type='submit'>Switch to %s</button>";
+            $baseMenuItem   .= "<button type='submit' class='account-switcher'>Switch to %s</button>";
         $baseMenuItem   .= "</form>";
     $baseMenuItem   .= "</li>";
 
@@ -76,7 +76,25 @@ function menuItems($items, $args) {
 
     ob_start();
     ?>
-    <li class="menu-item">
+    <style>
+        .account-switcher, .account-switcher:hover{
+            padding:            3px;
+            font-weight:        600;
+            border-radius:      7%;
+            background-color:   #fff;
+            color:              #515151;
+            font-size:          14px;
+            line-height:        40px;
+        }
+
+        .account-switcher:hover{
+            text-decoration:                  underline;
+            text-decoration-color:            currentcolor;
+            -webkit-text-decoration-color:  #bd2919;
+            text-decoration-color:          #bd2919;
+                }
+    </style>
+    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
         <a href="/my-profile/">
             <?php echo $profilePicture;?>
             <span role="presentation" class="dropdown-menu-toggle">
@@ -87,7 +105,7 @@ function menuItems($items, $args) {
                 </span>
             </span>
         </a>
-        <ul class="sub-menu">
+        <ul class="sub-menu" style='width: min-content;'>
             <?php echo $subItems;?>
         </ul>
     </li>
