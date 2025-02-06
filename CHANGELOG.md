@@ -6,10 +6,15 @@
 ### Changed
 
 ### Fixed
-- readme typo
-- switch without page loading
 
 ### Updated
+
+## [1.0.3] - 2025-02-06
+
+
+### Fixed
+- readme typo
+- switch without page loading
 
 ## [1.0.2] - 2025-01-27
 
