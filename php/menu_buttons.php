@@ -135,9 +135,9 @@ function switchAccount(){
     }
 
     // Logout the current user
-    //wp_destroy_current_session();
-	//wp_clear_auth_cookie();
-    //do_action( 'wp_logout', $user->ID );
+    wp_destroy_current_session();
+	wp_clear_auth_cookie();
+    do_action( 'wp_logout', $user->ID );
 
     // Login the new user
     wp_set_current_user($_POST['switch-account']);  
@@ -149,7 +149,7 @@ function switchAccount(){
     add_action( 'set_logged_in_cookie', __NAMESPACE__.'\storeInCookieVar', 10, 6 );
 
     // perform the login
-    $user = wp_signon();
+    $user = wp_signon(['remember'=>true]);
 
     // Remove action to store the login cookie in $_COOKIE
     remove_action( 'set_logged_in_cookie', __NAMESPACE__.'\storeInCookieVar' );
