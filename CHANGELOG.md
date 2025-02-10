@@ -6,6 +6,7 @@
 ### Changed
 
 ### Fixed
+- remember login when switching accounts
 
 ### Updated
 
