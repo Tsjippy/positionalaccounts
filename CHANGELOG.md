@@ -6,9 +6,14 @@
 ### Changed
 
 ### Fixed
-- remember login when switching accounts
 
 ### Updated
+
+## [1.0.5] - 2025-02-10
+
+
+### Fixed
+- remember login when switching accounts
 
 ## [1.0.4] - 2025-02-06
 
