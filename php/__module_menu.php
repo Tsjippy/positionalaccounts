@@ -7,13 +7,8 @@ DEFINE(__NAMESPACE__.'\MODULE_SLUG', strtolower(basename(dirname(__DIR__))));
 
 DEFINE(__NAMESPACE__.'\MODULE_PATH', plugin_dir_path(__DIR__));
 
-add_filter('sim_module_data', __NAMESPACE__.'\moduleData', 10, 3);
-function moduleData($dataHtml, $moduleSlug, $settings){
-	//module slug should be the same as grandparent folder name
-	if($moduleSlug != MODULE_SLUG){
-		return $dataHtml;
-	}
-
+add_filter('sim_module_positionalaccounts_data', __NAMESPACE__.'\moduleData');
+function moduleData($dataHtml){
 	$args = array(
 		'meta_query' => array(
 			array(
@@ -50,13 +45,8 @@ function moduleData($dataHtml, $moduleSlug, $settings){
 	return $dataHtml;
 }
 
-add_action('sim_module_activated', __NAMESPACE__.'\moduleActivated');
-function moduleActivated($moduleSlug){
-	//module slug should be the same as grandparent folder name
-	if($moduleSlug != MODULE_SLUG)	{
-		return;
-	}
-
+add_action('sim_module_positionalaccounts_activated', __NAMESPACE__.'\moduleActivated');
+function moduleActivated(){
 	// Enable forms module
 	if(!SIM\getModuleOption('forms', 'enable')){
 		SIM\ADMIN\enableModule('forms');
