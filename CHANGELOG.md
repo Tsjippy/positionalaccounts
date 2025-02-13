@@ -4,11 +4,16 @@
 ### Added
 
 ### Changed
-- module hooks now include module slug
 
 ### Fixed
 
 ### Updated
+
+## [1.0.6] - 2025-02-13
+
+
+### Changed
+- module hooks now include module slug
 
 ## [1.0.5] - 2025-02-10
 
