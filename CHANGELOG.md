@@ -2,6 +2,7 @@
 ## [Unreleased] - yyyy-mm-dd
 
 ### Added
+- multiple users linked to the same positional account
 
 ### Changed
 
