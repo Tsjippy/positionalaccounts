@@ -4,6 +4,9 @@ use SIM;
 
 add_action('sim-after-login-settings', __NAMESPACE__.'\addConditionalAccountSettings', 10, 2);
 
+/**
+ * Prints the forms to change an account type and to link a positional account to a personal account
+ */
 function addConditionalAccountSettings($userId, $nonce){
     $type			= 'positional';
     if(get_user_meta($userId, 'account-type', true) == 'positional'){
@@ -25,12 +28,12 @@ function addConditionalAccountSettings($userId, $nonce){
         <input type='hidden' name='wp_2fa_nonce' value='<?php echo $nonce;?>'>
 
         <?php
-        $linkedAccountId	= get_user_meta($userId, 'linked-account', true);
-        if(empty($linkedAccountId)){
-            $linkedAccountId	= -1;
+        $linkedAccountIds	= get_user_meta($userId, 'linked-accounts', true);
+        if(empty($linkedAccountIds)){
+            $linkedAccountIds	= [];
         }
 
-        echo SIM\userSelect("Link to an user account", true, false, '', 'linked_account', [], $linkedAccountId, [1]);
+        echo SIM\userSelect("Link to an user account", true, false, '', 'linked_accounts', [], $linkedAccountIds, [1], 'select', '', true);
         ?>
         <input type='submit' name='action' value='Link now' class='button small'>
     </form>
@@ -43,35 +46,55 @@ function updateAccountType($userId, $name){
         update_user_meta($userId, 'account-type', $_REQUEST['type']);
         echo "<div class='success'>Succesfully changed the account type for $name to {$_REQUEST['type']}</div>";
     }elseif($_REQUEST['action'] == 'Link now'){
-        if(!is_numeric($_REQUEST['linked_account'])){
+        if(!is_array($_REQUEST['linked_accounts'])){
             return;
         }
 
-        $linkedAccountId    = $_REQUEST['linked_account'];
+        $linkedAccountIds    = $_REQUEST['linked_accounts'];
 
         // Remove old linked user if needed
-        $oldLinkedUserId = get_user_meta($userId, 'linked-account', true);
-        if(is_numeric($oldLinkedUserId)){
-            // A non-positional account can have multiple positional account linked to it
-            $oldLinkedAccountLinkedAccounts = get_user_meta($oldLinkedUserId, 'linked-accounts', true);
+        $oldLinkedUserIds = get_user_meta($userId, 'linked-accounts', true);
+        if(is_array($oldLinkedUserIds)){
+            $removed    = array_diff($oldLinkedUserIds, $linkedAccountIds);
 
-            if(is_array($oldLinkedAccountLinkedAccounts) && in_array($userId, $oldLinkedAccountLinkedAccounts)){
-                unset($oldLinkedAccountLinkedAccounts[$userId]);
+            foreach($removed as $oldLinkedUserId){
+                // An account can have multiple positional account linked to it
+                $oldLinkedAccountLinkedAccounts = get_user_meta($oldLinkedUserId, 'linked-accounts', true);
 
-                update_user_meta($oldLinkedUserId, 'linked-accounts', $oldLinkedAccountLinkedAccounts);
+                if(is_array($oldLinkedAccountLinkedAccounts) && in_array($userId, $oldLinkedAccountLinkedAccounts)){
+                    unset($oldLinkedAccountLinkedAccounts[$userId]);
+
+                    update_user_meta($oldLinkedUserId, 'linked-accounts', $oldLinkedAccountLinkedAccounts);
+                }
             }
         }
 
         // Store the link in this account
-        update_user_meta($userId, 'linked-account', $linkedAccountId);
+        update_user_meta($userId, 'linked-accounts', $linkedAccountIds);
 
-        // Store the link in the target account
+        // Store the link in the target accounts
         // A non-positional account can have multiple positional account linked to it
-        $linkedAccountLinkedAccounts    = (array)get_user_meta($linkedAccountId, 'linked-accounts', true);
-        $linkedAccountLinkedAccounts[]  = $userId;
-        update_user_meta($linkedAccountId, 'linked-accounts', $linkedAccountLinkedAccounts);
+        $added    = array_diff($linkedAccountIds, $oldLinkedUserIds);
 
-        $displayName	= get_user($_REQUEST['linked_account'])->display_name;
+        $displayName	= '';
+
+        foreach($added as $newlyLinkedId){
+            $linkedAccountLinkedAccounts    = get_user_meta($newlyLinkedId, 'linked-accounts', true);
+
+            if(!is_array($linkedAccountLinkedAccounts)){
+                $linkedAccountLinkedAccounts    = [];
+            }
+            
+            $linkedAccountLinkedAccounts[]  = $userId;
+            update_user_meta($newlyLinkedId, 'linked-accounts', $linkedAccountLinkedAccounts);
+
+            if(!empty($displayName)){
+                $displayName    .= ' & ';
+            }
+            $displayName    .= get_user($newlyLinkedId)->display_name;
+        }
+
+        
         echo "<div class='success'>Succesfully linked the account for $name to the account of $displayName</div>";
     }
 }
@@ -82,7 +105,7 @@ function showPositionalForm($html, $userId){
         return $html;
     }
 
-    $linkedAccountId	= get_user_meta($userId, 'linked-account', true);
+    $linkedAccountId	= get_user_meta($userId, 'linked-accounts', true);
     $inkedUser			= get_user($linkedAccountId);
     if(empty($linkedAccountId) || !$inkedUser){
         $linkedAccountId	= -1;
@@ -141,11 +164,11 @@ function getAccountType($userId=''){
 // Show the details of the person linked to a positional account and not the positional account details
 add_filter('sim-user-description-user-id', __NAMESPACE__.'\userDescriptionId');
 function userDescriptionId($userId){
-    $linkedAccountId    = get_user_meta($userId, 'linked-account', true);
+    $linkedAccountIds    = get_user_meta($userId, 'linked-accounts', true);
 
     // account is linked and the account still exists
-    if(is_numeric($linkedAccountId) && get_user($linkedAccountId)){
-        return $linkedAccountId;
+    if(is_array($linkedAccountIds) && get_user($linkedAccountIds[0])){
+        return $linkedAccountIds[0];
     }
 
     return $userId;

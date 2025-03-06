@@ -21,24 +21,33 @@ function moduleData($dataHtml){
 
 	$url		= SIM\ADMIN\getDefaultPageLink('usermanagement', 'user_edit_page')."?userid=";
 
+	// SHow a table with one positional account per row and all the accounts linked to it.
 	$dataHtml	.= "<table class='sim'>";
 		$dataHtml	.= "<tr><th>Name</th><th>Linked to</th></tr>";
 
-	foreach(get_users($args) as $user){
-		$linkedUserId 	= get_user_meta($user->ID, 'linked-account', true);
 
-		$name			= "No user linked to this account <a href='$url$user->ID&main_tab=login_info'>Link now</a>";
+		foreach(get_users($args) as $user){
+			$linkedUserIds 	= get_user_meta($user->ID, 'linked-accounts', true);
 
-		if(is_numeric($linkedUserId)){
-			$linkedUser		= get_user($linkedUserId);
+			$name			= "No user linked to this account <a href='$url$user->ID&main_tab=login_info'>Link now</a>";
 
-			if($linkedUser){
-				$name		= $linkedUser->display_name;
-			}
+			if(is_array($linkedUserIds)){
+				$names	= [];
+				foreach($linkedUserIds as $linkedUserId){
+					$linkedUser		= get_user($linkedUserId);
+
+					if($linkedUser){
+						$names[]		= $linkedUser->display_name;
+					}
+				}
+
+				if(!empty($names)){
+					$name	= implode("\n", $names);
+				}
+
+				$dataHtml	.= "<tr><td><a href='$url$user->ID&main_tab=login_info'>$user->display_name</a></td><td>$name</td></tr>";
+			}	
 		}
-
-		$dataHtml	.= "<tr><td><a href='$url$user->ID&main_tab=login_info'>$user->display_name</a></td><td>$name</td></tr>";
-	}
 	$dataHtml	.= "</table>";
 	
 
