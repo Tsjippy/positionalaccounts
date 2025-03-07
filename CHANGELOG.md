@@ -6,6 +6,7 @@
 ### Changed
 
 ### Fixed
+- issue when no linked accounts yet
 
 ### Updated
 
