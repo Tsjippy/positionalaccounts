@@ -67,6 +67,8 @@ function updateAccountType($userId, $name){
                     update_user_meta($oldLinkedUserId, 'linked-accounts', $oldLinkedAccountLinkedAccounts);
                 }
             }
+        }else{
+            $oldLinkedUserIds   = [];
         }
 
         // Store the link in this account
