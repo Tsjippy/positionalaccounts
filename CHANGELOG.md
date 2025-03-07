@@ -9,6 +9,12 @@
 
 ### Updated
 
+## [1.0.7] - 2025-03-06
+
+
+### Added
+- multiple users linked to the same positional account
+
 ## [1.0.6] - 2025-02-13
 
 
