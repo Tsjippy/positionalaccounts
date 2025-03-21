@@ -4,6 +4,7 @@
 ### Added
 
 ### Changed
+- webauthn required for switching
 
 ### Fixed
 - issue when no linked accounts yet
