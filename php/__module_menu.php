@@ -2,7 +2,7 @@
 namespace SIM\POSITIONALACCOUNTS;
 use SIM;
 
-const MODULE_VERSION		= '1.0.7';
+const MODULE_VERSION		= '1.0.8';
 DEFINE(__NAMESPACE__.'\MODULE_SLUG', strtolower(basename(dirname(__DIR__))));
 
 DEFINE(__NAMESPACE__.'\MODULE_PATH', plugin_dir_path(__DIR__));

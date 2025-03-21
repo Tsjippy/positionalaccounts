@@ -4,12 +4,19 @@
 ### Added
 
 ### Changed
+
+### Fixed
+
+### Updated
+
+## [1.0.8] - 2025-03-21
+
+
+### Changed
 - webauthn required for switching
 
 ### Fixed
 - issue when no linked accounts yet
-
-### Updated
 
 ## [1.0.7] - 2025-03-06
 
