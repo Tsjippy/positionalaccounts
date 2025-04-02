@@ -7,6 +7,7 @@
 
 ### Fixed
 - switch account button on mobile
+- styling issue
 
 ### Updated
 
