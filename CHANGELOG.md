@@ -6,6 +6,7 @@
 ### Changed
 
 ### Fixed
+- switch account button on mobile
 
 ### Updated
 
