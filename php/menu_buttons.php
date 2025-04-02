@@ -18,8 +18,13 @@ function menuItems($items, $args) {
 
     $profilePicture = SIM\displayProfilePicture($userId, [20, 20], false, false, false);
 
+    $style      = '';
+    if(wp_is_mobile()){
+        $style  = "style='width:100%;'";
+    }
+
     $baseMenuItem   = "<li class='menu-item switch-account'>";
-        $baseMenuItem   .= "<button type='button' class='account-switcher' data-accountid='%d' data-nonce='$nonce'>Switch to %s</button>";
+        $baseMenuItem   .= "<button type='button' class='account-switcher' data-accountid='%d' data-nonce='$nonce' $style>Switch to %s</button>";
     $baseMenuItem   .= "</li>";
 
     $linkedAccountIds    = get_user_meta($userId, 'linked-accounts', true);
