@@ -20,7 +20,7 @@ function menuItems($items, $args) {
 
     $style      = '';
     if(wp_is_mobile()){
-        $style  = "style='width:100%;'";
+        $style  = "style='width:100vw;'";
     }
 
     $baseMenuItem   = "<li class='menu-item switch-account'>";
