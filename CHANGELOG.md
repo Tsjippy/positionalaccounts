@@ -6,10 +6,15 @@
 ### Changed
 
 ### Fixed
-- switch account button on mobile
-- styling issue
 
 ### Updated
+
+## [1.0.9] - 2025-05-08
+
+
+### Fixed
+- switch account button on mobile
+- styling issue
 
 ## [1.0.8] - 2025-03-21
 
