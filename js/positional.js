@@ -25,7 +25,7 @@ async function verifyAccountSwitch(target){
     }
 
     Main.displayMessage("Passkey login for the account failed.\nLogging out...", 'error');
-    
+
     // If the passkey login failed, we log out the user
     // This is to ensure that the user can try logging in with a different method
     document.querySelectorAll(`.logout`).forEach((el) => el.click());
