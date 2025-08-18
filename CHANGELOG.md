@@ -4,6 +4,7 @@
 ### Added
 
 ### Changed
+- log out when switching failes
 
 ### Fixed
 
