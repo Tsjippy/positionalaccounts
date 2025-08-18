@@ -6,9 +6,14 @@
 ### Changed
 
 ### Fixed
-- clearer error messages
 
 ### Updated
+
+## [1.1.1] - 2025-08-18
+
+
+### Fixed
+- clearer error messages
 
 ## [1.1.0] - 2025-08-18
 
