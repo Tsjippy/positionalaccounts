@@ -4,11 +4,16 @@
 ### Added
 
 ### Changed
-- log out when switching failes
 
 ### Fixed
 
 ### Updated
+
+## [1.1.0] - 2025-08-18
+
+
+### Changed
+- log out when switching failes
 
 ## [1.0.9] - 2025-05-08
 
