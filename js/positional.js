@@ -23,8 +23,12 @@ async function verifyAccountSwitch(target){
             return;
         }
     }
-        
-    Main.displayMessage("Please logout and login as the other account.\nMake sure you than setup passkey login for that account.", 'error');
+
+    Main.displayMessage("Passkey login for the account failed.\nLogging out...", 'error');
+    
+    // If the passkey login failed, we log out the user
+    // This is to ensure that the user can try logging in with a different method
+    document.querySelectorAll(`.logout`).forEach((el) => el.click());
     
     let menu     = loader.closest('.menu-item-has-children');
     loader.remove();
