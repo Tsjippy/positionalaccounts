@@ -124,7 +124,7 @@ function showPositionalForm($html, $userId){
         $html			   .= "<div class='warning'>This account is a positional account and is linked to $nameHtml</div>";
     }
 
-    $html	.= do_shortcode("[formbuilder formname=positional_generic userid=$userId]");
+    $html	.= do_shortcode("[formbuilder formname=positional_generic user-id=$userId]");
 
     return $html;
 }

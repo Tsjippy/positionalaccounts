@@ -19,7 +19,7 @@ function moduleData($dataHtml){
 		)
 	);
 
-	$url		= SIM\ADMIN\getDefaultPageLink('usermanagement', 'user_edit_page')."?userid=";
+	$url		= SIM\ADMIN\getDefaultPageLink('usermanagement', 'user_edit_page')."?user-id=";
 
 	// SHow a table with one positional account per row and all the accounts linked to it.
 	$dataHtml	.= "<table class='sim'>";
