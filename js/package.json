@@ -4,7 +4,8 @@
   "description": "Forms",
   "main": "./forms.js",
   "scripts": {
-    "build": "webpack --watch --entry ./positional.js --output-path . --output-filename positional.min.js --progress --mode=production --devtool source-map"
+    "build": "webpack --watch --entry ./positional.js --output-path . --output-filename positional.min.js --progress --mode=production --devtool source-map",
+    "all": "run-p build"
   },
   "author": "Ewald Harmsen",
   "license": "ISC",

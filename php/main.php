@@ -14,8 +14,8 @@ function addConditionalAccountSettings($userId, $nonce){
     }
     ?>
     <form method='post'>
-        <input type='hidden' name='user_id' value='<?php echo $userId;?>'>
-        <input type='hidden' name='wp_2fa_nonce' value='<?php echo $nonce;?>'>
+        <input type='hidden' name='user-id' value='<?php echo $userId;?>'>
+        <input type='hidden' name='wp-2fa-nonce' value='<?php echo $nonce;?>'>
         <input type='hidden' name='type' value='<?php echo $type;?>'>
 
         Use the button below to switch this account to a <?php echo $type;?> account<br>
@@ -24,8 +24,8 @@ function addConditionalAccountSettings($userId, $nonce){
     <br>
     
     <form method='post'>
-        <input type='hidden' name='user_id' value='<?php echo $userId;?>'>
-        <input type='hidden' name='wp_2fa_nonce' value='<?php echo $nonce;?>'>
+        <input type='hidden' name='user-id' value='<?php echo $userId;?>'>
+        <input type='hidden' name='wp-2fa-nonce' value='<?php echo $nonce;?>'>
 
         <?php
         $linkedAccountIds	= get_user_meta($userId, 'linked-accounts', true);
