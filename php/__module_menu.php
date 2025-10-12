@@ -29,7 +29,7 @@ function moduleData($dataHtml){
 		foreach(get_users($args) as $user){
 			$linkedUserIds 	= get_user_meta($user->ID, 'linked-accounts', true);
 
-			$name			= "No user linked to this account <a href='$url$user->ID&main_tab=login-info'>Link now</a>";
+			$name			= "No user linked to this account <a href='$url$user->ID&main-tab=login-info'>Link now</a>";
 
 			if(is_array($linkedUserIds)){
 				$names	= [];
@@ -45,7 +45,7 @@ function moduleData($dataHtml){
 					$name	= implode("\n", $names);
 				}
 
-				$dataHtml	.= "<tr><td><a href='$url$user->ID&main_tab=login-info'>$user->display_name</a></td><td>$name</td></tr>";
+				$dataHtml	.= "<tr><td><a href='$url$user->ID&main-tab=login-info'>$user->display_name</a></td><td>$name</td></tr>";
 			}	
 		}
 	$dataHtml	.= "</table>";
