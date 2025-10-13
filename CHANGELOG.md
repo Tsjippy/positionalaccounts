@@ -4,13 +4,20 @@
 ### Added
 
 ### Changed
+
+### Fixed
+
+### Updated
+
+## [1.1.2] - 2025-10-13
+
+
+### Changed
 - classnames
 - main_tab
 
 ### Fixed
 - bugs
-
-### Updated
 
 ## [1.1.1] - 2025-08-18
 
