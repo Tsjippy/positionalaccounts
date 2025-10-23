@@ -144,8 +144,7 @@ function checkIfNormal( $isNormal, $userId=''){
 }
 
 // No recommended fields for positional user accounts
-add_filter("sim_recommended_html_filter", __NAMESPACE__.'\filterPositionalAccount', 10, 2);
-add_filter("sim_mandatory_html_filter", __NAMESPACE__.'\filterPositionalAccount', 10, 2);
+add_filter("sim_manadatory_html_filter", __NAMESPACE__.'\filterPositionalAccount', 10, 2);
 function filterPositionalAccount($html, $userId){
 	if(getAccountType($userId) == 'positional'){
 		return '';
