@@ -4,11 +4,16 @@
 ### Added
 
 ### Changed
-- filter update
 
 ### Fixed
 
 ### Updated
+
+## [1.1.3] - 2025-10-30
+
+
+### Changed
+- filter update
 
 ## [1.1.2] - 2025-10-13
 
