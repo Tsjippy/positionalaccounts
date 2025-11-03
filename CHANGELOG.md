@@ -4,11 +4,16 @@
 ### Added
 
 ### Changed
-- stop listening to events if we have a match
 
 ### Fixed
 
 ### Updated
+
+## [1.1.4] - 2025-11-03
+
+
+### Changed
+- stop listening to events if we have a match
 
 ## [1.1.3] - 2025-10-30
 
