@@ -39,10 +39,7 @@ function switchAccount(){
         echo "<div class='error'>This account is not linked to your account!</div>";
     }
 
-    if(!isset($_SESSION)){
-        session_start();
-    }
-    $_SESSION['orgaccount']   = $user->ID;
+    SIM\storeInTransient('orgaccount', $user->ID);
 
     session_write_close();
 
