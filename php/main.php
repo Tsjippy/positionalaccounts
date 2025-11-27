@@ -107,21 +107,29 @@ function showPositionalForm($html, $userId){
         return $html;
     }
 
-    $linkedAccountId	= get_user_meta($userId, 'linked-accounts', true);
-    $inkedUser			= get_user($linkedAccountId);
-    if(empty($linkedAccountId) || !$inkedUser){
-        $linkedAccountId	= -1;
+    $linkedAccountIds	= get_user_meta($userId, 'linked-accounts', true);
+
+    $userNames  = [];
+    foreach($linkedAccountIds as $linkedAccountId){
+        $inkedUser			= get_user($linkedAccountId);
+        if(!empty($linkedAccountId) && $inkedUser){
+            $nameHtml			= $inkedUser->display_name;
+            if(function_exists('SIM\USERPAGES\getUserPageUrl')){
+                $url = SIM\USERPAGES\getUserPageUrl($inkedUser->ID);
+                if($url){
+                    $nameHtml	= "<a href='$url' target='_blank'>$nameHtml</a>";
+                }
+            }
+
+            $userNames[]   = $nameHtml;
+        }
+    }
+
+    if(empty($userNames)){
         $html			   .= "<div class='warning'>This account is an positional account and should be linked to a normal user account.<br>Please do so on the 'Login Info' tab</div>";
     }else{
-        $nameHtml			= $inkedUser->display_name;
-        if(function_exists('SIM\USERPAGES\getUserPageUrl')){
-            $url = SIM\USERPAGES\getUserPageUrl($inkedUser->ID);
-            if($url){
-                $nameHtml	= "<a href='$url' target='_blank'>$nameHtml</a>";
-            }
-        }
-        
-        $html			   .= "<div class='warning'>This account is a positional account and is linked to $nameHtml</div>";
+        $userNames          = implode(' & ', $userNames);
+        $html			   .= "<div class='warning'>This account is a positional account and is linked to $userNames</div>";
     }
 
     $html	.= do_shortcode("[formbuilder formname=positional_generic user-id=$userId]");
