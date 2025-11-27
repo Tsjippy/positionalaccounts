@@ -7,6 +7,7 @@
 - implemented getFromTransient
 
 ### Fixed
+- implemented new login js code
 
 ### Updated
 
