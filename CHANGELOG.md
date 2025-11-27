@@ -6,6 +6,7 @@
 ### Changed
 
 ### Fixed
+- linked user accounts html
 
 ### Updated
 
