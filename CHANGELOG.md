@@ -6,9 +6,14 @@
 ### Changed
 
 ### Fixed
-- linked user accounts html
 
 ### Updated
+
+## [1.1.6] - 2025-11-27
+
+
+### Fixed
+- linked user accounts html
 
 ## [1.1.5] - 2025-11-27
 
