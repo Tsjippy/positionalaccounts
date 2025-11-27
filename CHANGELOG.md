@@ -4,11 +4,19 @@
 ### Added
 
 ### Changed
-- implemented getFromTransient
 
 ### Fixed
 
 ### Updated
+
+## [1.1.5] - 2025-11-27
+
+
+### Changed
+- implemented getFromTransient
+
+### Fixed
+- implemented new login js code
 
 ## [1.1.4] - 2025-11-03
 
