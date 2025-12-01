@@ -115,7 +115,7 @@ function showPositionalForm($html, $userId){
         if(!empty($linkedAccountId) && $inkedUser){
             $nameHtml			= $inkedUser->display_name;
             if(function_exists('SIM\USERPAGES\getUserPageUrl')){
-                $url = SIM\USERPAGES\getUserPageUrl($inkedUser->ID);
+                $url = SIM\maybeGetUserPageUrl($inkedUser->ID);
                 if($url){
                     $nameHtml	= "<a href='$url' target='_blank'>$nameHtml</a>";
                 }
