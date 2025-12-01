@@ -4,6 +4,7 @@
 ### Added
 
 ### Changed
+- get user page url
 
 ### Fixed
 
