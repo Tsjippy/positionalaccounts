@@ -4,11 +4,16 @@
 ### Added
 
 ### Changed
-- get user page url
 
 ### Fixed
 
 ### Updated
+
+## [1.1.7] - 2025-12-01
+
+
+### Changed
+- get user page url
 
 ## [1.1.6] - 2025-11-27
 
