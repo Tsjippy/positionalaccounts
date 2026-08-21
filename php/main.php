@@ -174,10 +174,7 @@ function showPositionalForm($html, $userId)
         $html               .= "<div class='warning'>This account is a positional account and is linked to $userNames</div>";
     }
 
-    $forms  = new TSJIPPY\FORMS\DisplayForm( [
-        'slug' => 'positional_generic',
-        'user-id' => $userId
-    ] );
+    $forms  = new TSJIPPY\FORMS\Forms( blockId:$blockId, postId: $postId, userId: $userId);
     $html    .= $forms->showForm();
 
     return $html;
