@@ -4,12 +4,19 @@
 ### Added
 
 ### Changed
+
+### Fixed
+
+### Updated
+
+## [10.4.9] - 2026-08-22
+
+
+### Changed
 - implemented new forms structure
 
 ### Fixed
 - meta typo
-
-### Updated
 
 ## [10.4.8] - 2026-07-15
 
