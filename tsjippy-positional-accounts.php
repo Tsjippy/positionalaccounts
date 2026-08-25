@@ -43,14 +43,19 @@ register_activation_hook(__FILE__, function () {
     if(file_exists(__DIR__  . '/shared-functionality/loader.php')){
         require_once(__DIR__  . '/shared-functionality/loader.php');
     }
+
+    $settings    = SETTINGS;
     
     // Import the forms
     $formBuilder    = new \TSJIPPY\FORMS\FormExport();
 
     $files = glob(PLUGINPATH  . "imports/*.sform");
     foreach ($files as $file) {
-        $formBuilder->importForm($file);
+        $formName            = basename($file, '.sform');
+        $settings[$formName] = $formBuilder->importForm($file);
     }
+
+    update_option('tsjippy_positional-accounts_settings', $settings);
 
     if(function_exists('TSJIPPY\activate')){
         \TSJIPPY\activate();
