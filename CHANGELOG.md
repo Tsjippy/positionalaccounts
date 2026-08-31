@@ -4,11 +4,16 @@
 ### Added
 
 ### Changed
-- implemented new forms structure
 
 ### Fixed
 
 ### Updated
+
+## [10.5.2] - 2026-08-31
+
+
+### Changed
+- implemented new forms structure
 
 ## [10.5.1] - 2026-08-23
 
