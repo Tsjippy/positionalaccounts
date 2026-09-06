@@ -175,7 +175,7 @@ function showPositionalForm($html, $userId)
     }
 
     $forms  = new TSJIPPY\FORMS\Forms( postId: SETTINGS['positional_generic'] ?? -1, userId: $userId);
-    $html    .= $forms->showForm();
+    $html    .= $forms->showForm(false);
 
     return $html;
 }
